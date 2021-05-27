@@ -1,0 +1,63 @@
+﻿@model object
+@{
+    ViewData["Title"] = "Third";
+}
+
+@if (Context.Request.Method == "GET")
+{
+    <div class="container">
+        <pre>
+            @((Model as Lab2.Controllers.RequestsController.GetViewModel).Query)
+        </pre>
+        <span>
+            @((Model as Lab2.Controllers.RequestsController.GetViewModel).Description)
+        </span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div class="form-group">
+                    <label for="X" class="control-label"></label>
+                    <input name="X" type="number" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Execute" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@if (Context.Request.Method == "POST")
+{
+
+    var m = (IEnumerable<Label>)Model;
+    var q = new Label();
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => q.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => q.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in m)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
